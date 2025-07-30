@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Catrina Editora</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+        
+body {
+font-family: 'Poppins', sans-serif;
+background-color: #f8f5f2;
+color: #333;
+}
+
+
+.title-font {
+font-family: 'Playfair Display', serif;
+}
+   
+.catrina-primary {
+background-color: #FF6B35; /* Vibrant orange */
+}
+
+.catrina-secondary {
+ background-color: #5E2BFF; /* Deep purple */
+}
+
+.catrina-accent {
+background-color: #D90368; /* Magenta */
+}
+.catrina-yellow {
+background-color: #F7C548; /* Light yellow */
+}
+
+.catrina-blue {
+background-color: #2EC4B6; /* Teal blue */
+}
+
+.hero-bg {
+background-image: linear-gradient(rgba(117, 11, 239, 0.773), rgba(226, 94, 12, 0.863));
+background-size: cover;
+background-position: center;
+}
+
+
+</style>
+</head>
+<body>
+    
+    <!-- Navbar -->
+
+<nav class="catrina-secondary text-white shadow-lg" style="background: linear-gradient(90deg, #FF6B35 0%, #5E2BFF 50%, #D90368 100%)">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center py-4">
+<div class="flex items-center space-x-4">
+
+<span class="title-font text-xl">La Catrina Editora</span>
+</div>
+
+<div class="hidden md:flex items-center space-x-6">
+<a href="#" class="hover:text-gray-300">Início</a>
+<a href="#livros" class="hover:text-gray-300">Livros</a>
+<a href="#sobre" class="hover:text-gray-300">Sobre</a>
+</div>
+
+<div class="flex items-center space-x-4">
+<button id="authButtons" class="bg-transparent hover:bg-white hover:text-black text-white px-4 py-2 rounded transition">
+                        Entrar
+</button>
+
+<button id="cartButton" class="relative">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+</svg>
+
+<span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+</button>
+
+</div>
+</div>
+</div>
+</nav>
+
+    <!-- Parte 1 -->
+<section class="hero-bg text-white py-20 relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center opacity-20">
+    
+</div>
+<div class="container mx-auto px-4 text-center">
+<h1 class="title-font text-4xl md:text-6xl mb-4">La Catrina Editora</h1>
+<p class="text-xl mb-8">Onde as palavras ganham vida e a cultura floresce</p>
+</div>
+</section>
+
+
+    <!-- Auth Modal -->
+<div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div class="bg-white rounded-lg w-full max-w-md p-6 mx-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-2xl font-bold title-font">Acessar conta</h3>
+<button id="closeModal" class="text-gray-500 hover:text-gray-700">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+</svg>
+</button>
+            
+</div>
+            
+<div id="loginForm">
+<div class="mb-4">
+<label for="loginEmail" class="block text-gray-700 mb-2">E-mail</label>
+<input type="email" id="loginEmail" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300">
+<p id="loginEmailError" class="text-red-500 text-sm mt-1 hidden">Por favor insira um e-mail válido</p>
+</div>
+
+<div class="mb-4">
+<label for="loginPassword" class="block text-gray-700 mb-2">Senha</label>
+<input type="password" id="loginPassword" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300">
+<p id="loginPasswordError" class="text-red-500 text-sm mt-1 hidden">A senha deve ter pelo menos 6 caracteres</p>
+</div>
+
+<button id="loginBtn" class="catrina-primary w-full text-white py-2 rounded mb-4 hover:bg-opacity-90 transition">Entrar</button>
+<p class="text-center text-sm">Não tem uma conta? <button id="switchToRegister" class="text-blue-600 hover:underline">Cadastre-se</button></p>
+</div>
+
+
+
+<div id="registerForm" class="hidden">
+<div class="mb-4">
+<label for="registerName" class="block text-gray-700 mb-2">Nome completo</label>
+<input type="text" id="registerName" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300">
+<p id="registerNameError" class="text-red-500 text-sm mt-1 hidden">Por favor insira seu nome completo</p>
+</div>
+
+<div class="mb-4">
+<label for="registerEmail" class="block text-gray-700 mb-2">E-mail</label>
+<input type="email" id="registerEmail" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300">
+<p id="registerEmailError" class="text-red-500 text-sm mt-1 hidden">Por favor insira um e-mail válido</p>
+</div>
+
+<div class="mb-4">
+<label for="registerPassword" class="block text-gray-700 mb-2">Senha</label>
+<input type="password" id="registerPassword" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300">
+<p id="registerPasswordError" class="text-red-500 text-sm mt-1 hidden">A senha deve ter pelo menos 6 caracteres</p>
+</div>
+
+<div class="mb-4">
+<label for="registerConfirmPassword" class="block text-gray-700 mb-2">Confirme sua senha</label>
+<input type="password" id="registerConfirmPassword" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300">
+<p id="registerConfirmPasswordError" class="text-red-500 text-sm mt-1 hidden">As senhas não coincidem</p>
+</div>
+                
+<button id="registerBtn" class="catrina-primary w-full text-white py-2 rounded mb-4 hover:bg-opacity-90 transition">Cadastrar</button>
+<p class="text-center text-sm">Já tem uma conta? <button id="switchToLogin" class="text-blue-600 hover:underline">Faça login</button></p>
+</div>
+</div>
+</div>
+
+    <!-- Card Registration Modal -->
+    <div id="cardModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div class="bg-white rounded-lg w-full max-w-md p-6 mx-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-2xl font-bold title-font">Cadastrar Cartão</h3>
+<button id="closeCardModal" class="text-gray-500 hover:text-gray-700">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+</svg>
+
+</button>
+</div>
+            
+<div id="cardForm">
+<div class="mb-4">
+<label for="cardName" class="block text-gray-700 mb-2">Nome no Cartão</label>
+<input type="text" id="cardName" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300">
+</div>
+
+<div class="mb-4">
+<label for="cardNumber" class="block text-gray-700 mb-2">Número do Cartão</label>
+<input type="text" id="cardNumber" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300" placeholder="0000 0000 0000 0000">
+</div>
+                
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div>
+<label for="cardExpiry" class="block text-gray-700 mb-2">Validade</label>
+<input type="text" id="cardExpiry" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300" placeholder="MM/AA">
+</div>
+                    
+<div>
+                        
+<label for="cardCvv" class="block text-gray-700 mb-2">CVV</label>
+<input type="text" id="cardCvv" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-brown-300" placeholder="123">
+</div>
+</div>
+                
+<button id="saveCardBtn" class="catrina-primary w-full text-white py-2 rounded mb-4 hover:bg-opacity-90 transition">Salvar Cartão</button>
+</div>
+</div>
+</div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg w-full max-w-2xl p-6 mx-4 max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold title-font">Seu Carrinho</h3>
+                <button id="closeCartModal" class="text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="cartItems" class="mb-4">
+                <!-- Itens serão adicionados dinamicamente aqui -->
+                <p id="emptyCartMessage" class="text-center py-8">Seu carrinho está vazio</p>
+            </div>
+            
+            <div id="cartSummary" class="hidden">
+                <div class="border-t pt-4">
+                    <div class="mb-4">
+                        <h4 class="font-bold mb-2">Calcular Frete</h4>
+                        <div class="flex">
+                            <input type="text" id="cepInput" class="flex-1 px-3 py-2 border rounded-l focus:outline-none" placeholder="Digite seu CEP">
+                            <button id="calculateShippingBtn" class="catrina-primary text-white px-4 py-2 rounded-r hover:bg-opacity-90 transition">
+                                Calcular
+                            </button>
+                        </div>
+                        <div id="shippingOptions" class="mt-2 hidden">
+                            <div class="flex items-center mb-2">
+                                <input type="radio" name="shipping" id="shippingStandard" class="mr-2" checked>
+                                <label for="shippingStandard">Correios - Padrão (5-7 dias úteis)</label>
+                                <span class="ml-auto font-bold" id="standardShippingPrice">R$ 0,00</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="shipping" id="shippingExpress" class="mr-2">
+                                <label for="shippingExpress">Correios - Expresso (2-3 dias úteis)</label>
+                                <span class="ml-auto font-bold" id="expressShippingPrice">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Subtotal</span>
+                        <span id="cartSubtotal">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Frete</span>
+                        <span id="cartShipping">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between font-bold text-lg">
+                        <span>Total</span>
+                        <span id="cartTotal">R$ 0,00</span>
+                    </div>
+                </div>
+                <button id="checkoutBtn" class="catrina-primary w-full text-white py-3 rounded mt-4 hover:bg-opacity-90 transition">
+                    Finalizar Compra
+                </button>
+                <button id="addCardBtn" class="catrina-secondary w-full text-white py-3 rounded mt-4 hover:bg-opacity-90 transition">
+                    Adicionar Cartão
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nossos Livros -->
+    <section id="colecao" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="title-font text-3xl text-center mb-12"> Nossos Livros</h2>
+            
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+<!-- Book 1 -->
+                
+<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+<div class="h-64 overflow-hidden">
+<img src="" alt="Capa do livro Mariposa Escarlate" class="w-full h-full object-cover">
+</div>
+<div class="p-4">
+<h3 class="title-font text-xl mb-2">Mariposa Escarlate</h3>
+<p class="text-gray-600 mb-4">Por Kristen Ciccareli</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">R$ 59,90</span>
+<button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition" data-id="4" data-title="Mariposa Escarlate" data-price="59.90">
+                                Adicionar ao Carrinho
+</button>
+</div>
+</div>
+</div>
+                
+                <!-- Book 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8b330bfd-be07-45cd-8136-c71500a23f54.png" alt="Capa do livro A Serpente e o Lobo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="title-font text-xl mb-2">A Serpente e o Lobo</h3>
+                        <p class="text-gray-600 mb-4">Por Rebecca Robinson</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 64,90</span>
+                            <button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition" data-id="5" data-title="A Serpente e o Lobo" data-price="64.90">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e68d1232-32fe-4605-93ab-fcf490462c95.png" alt="Capa do livro O Despertar da Chama Eterna" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="title-font text-xl mb-2">O Despertar da Chama Eterna</h3>
+                        <p class="text-gray-600 mb-4">Por Penn Cole</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 69,90</span>
+                            <button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition" data-id="6" data-title="O Despertar da Chama Eterna" data-price="69.90">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6e56b5a2-7173-413d-b7f8-740a7864e91c.png" alt="Capa do livro Cutelo e o Corvo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="title-font text-xl mb-2">Cutelo e o Corvo</h3>
+                        <p class="text-gray-600 mb-4">Por Byrne Weaver</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 54,90</span>
+                            <button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition" data-id="7" data-title="Cutelo e o Corvo" data-price="54.90">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 5 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d69ba3f4-653b-4e47-8cf4-c9e95e3a1b6b.png" alt="Capa do livro Sentinela" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="title-font text-xl mb-2">Sentinela</h3>
+                        <p class="text-gray-600 mb-4">Por Bloom Brasil</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 49,90</span>
+                            <button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition" data-id="8" data-title="Sentinela" data-price="49.90">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 6 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b3122e4d-8ae8-46c7-abe3-e1f30d6307fd.png" alt="Capa do livro Um Toque de Caos" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="title-font text-xl mb-2">Um Toque de Caos</h3>
+                        <p class="text-gray-600 mb-4">Por Bloom Brasil</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 52,90</span>
+                            <button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition" data-id="9" data-title="Um Toque de Caos" data-price="52.90">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section id="livros" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="title-font text-3xl text-center mb-12">Nossos Livros</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Book 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a9127d2b-d26d-4acb-bc9f-de73f942b11c.png" alt="Capa do livro 'Mariposa Escarlate' - ilustração de borboleta vermelha com flores" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="title-font text-xl mb-2">Mariposa Escarlate</h3>
+                        <p class="text-gray-600 mb-4">Uma história de amor e amadurecimento em meio ao sobrenatural.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 52,90</span>
+                            <button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition border-2 border-yellow-300" data-id="1" data-title="Mariposa Escarlate" data-price="52.90">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6fb6e9aa-6370-4af2-9c89-8c96505c90be.png" alt="Capa do livro 'Dias de los Muertos': altar colorido com caveiras de açúcar e flores de cempasúchil" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="title-font text-xl mb-2">Dias de los Muertos</h3>
+                        <p class="text-gray-600 mb-4">Contos sobre a celebração da vida e da morte.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 59,90</span>
+                            <button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition" data-id="2" data-title="Dias de los Muertos" data-price="59.90">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c448d183-f551-4b11-8042-5221f248bd9c.png" alt="Capa do livro 'Frida: Entre Flores e Espinhos': retrato estilizado de Frida Kahlo com cores vibrantes" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="title-font text-xl mb-2">Frida: Entre Flores e Espinhos</h3>
+                        <p class="text-gray-600 mb-4">A biografia da icônica artista mexicana.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 79,90</span>
+                            <button class="add-to-cart catrina-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition" data-id="3" data-title="Frida: Entre Flores e Espinhos" data-price="79.90">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-16 catrina-secondary text-white relative" style="border-top: 8px solid #FF6B35; border-bottom: 8px solid #F7C548">
+        <div class="absolute top-0 left-0 right-0 flex justify-center">
+            <div class="flex space-x-8">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4facf0df-9587-4a4f-a626-d92db27e5856.png" alt="Skull decoration" class="h-12 w-12">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e747cd27-0ee0-4141-a87c-c7cce88030d6.png" alt="Cactus decoration" class="h-12 w-12">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cc1c22e5-c8fa-4ad6-b714-b0e3b63d1dd6.png" alt="Taco decoration" class="h-12 w-12">
+            </div>
+        </div>
+        <div class="container mx-auto px-4">
+            <h2 class="title-font text-3xl text-center mb-12">Sobre La Catrina</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2e65e19d-7a89-4ba5-8b4e-4bf63d6cce2b.png" alt="Interior da editora La Catrina: estante de livros em madeira escura com ilustrações tradicionais mexicanas nas paredes" class="rounded-lg shadow-xl">
+                </div>
+                <div>
+                    <p class="mb-4">
+                        Fundada em 2015, La Catrina Editora nasceu com o propósito de celebrar e disseminar a riqueza da literatura latino-americana, com especial enfoque na cultura mexicana e suas tradições.
+                    </p>
+                    <p class="mb-4">
+                        Nosso nome homenageia a icônica figura de La Catrina, criação do artista José Guadalupe Posada, que representa a fusão única entre a celebração da vida e a aceitação da morte na cultura mexicana.
+                    </p>
+                    <p>
+                        Acreditamos que os livros são mais do que objetos - são portais para novos mundos, preservadores de memórias e catalisadores de transformação.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="catrina-secondary text-white py-8" style="background: linear-gradient(90deg, #FF6B35 0%, #5E2BFF 50%, #2EC4B6 100%)">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="title-font text-lg mb-4">La Catrina Editora</h4>
+                    <p>
+                        Endereço: Rua dos Livros, 123<br>
+                        Cidade Literária - MX<br>
+                        CEP: 12345-678
+                    </p>
+                </div>
+                <div>
+                    <h4 class="title-font text-lg mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-gray-300">Início</a></li>
+                        <li><a href="#livros" class="hover:text-gray-300">Livros</a></li>
+                        <li><a href="#sobre" class="hover:text-gray-300">Sobre</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="title-font text-lg mb-4">Contato</h4>
+                    <p>
+                        Email: contato@lacatrinaeditora.com<br>
+                        Telefone: +55 12 3456-7890
+                    </p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="hover:text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="hover:text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="hover:text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+                <p>© 2023 La Catrina Editora. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.querySelector('.carousel');
+            const items = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.querySelector('.carousel-control.prev');
+            const nextBtn = document.querySelector('.carousel-control.next');
+            let currentIndex = 0;
+
+            function showItem(index) {
+                items.forEach((item, i) => {
+                    item.style.opacity = i === index ? '1' : '0';
+                });
+            }
+
+            function nextItem() {
+                currentIndex = (currentIndex + 1) % items.length;
+                showItem(currentIndex);
+            }
+
+            function prevItem() {
+                currentIndex = (currentIndex - 1 + items.length) % items.length;
+                showItem(currentIndex);
+            }
+
+            // Auto-rotate every 5 seconds
+            let interval = setInterval(nextItem, 5000);
+
+            // Pause on hover
+            carousel.addEventListener('mouseenter', () => clearInterval(interval));
+            carousel.addEventListener('mouseleave', () => {
+                interval = setInterval(nextItem, 5000);
+            });
+
+            // Button controls
+            nextBtn.addEventListener('click', nextItem);
+            prevBtn.addEventListener('click', prevItem);
+
+            // Show first item initially
+            showItem(0);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        // DOM Elements - Card
+        const cardModal = document.getElementById('cardModal');
+        const closeCardModal = document.getElementById('closeCardModal');
+        const addCardBtn = document.getElementById('addCardBtn');
+        const saveCardBtn = document.getElementById('saveCardBtn');
+        let cards = [];
+
+        // DOM Elements - Main
+        const authModal = document.getElementById('authModal');
+        const authButtons = document.getElementById('authButtons');
+        const closeModal = document.getElementById('closeModal');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const cartModal = document.getElementById('cartModal');
+        const cartButton = document.getElementById('cartButton');
+        const closeCartModal = document.getElementById('closeCartModal');
+        const cartItems = document.getElementById('cartItems');
+        const emptyCartMessage = document.getElementById('emptyCartMessage');
+        const cartSummary = document.getElementById('cartSummary');
+        const cartCount = document.getElementById('cartCount');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        // Auth State
+        let isLoggedIn = false;
+        let currentUser = null;
+
+        // Cart State
+        let cart = [];
+
+        // Card Functions
+        function saveCard() {
+            const card = {
+                name: document.getElementById('cardName').value,
+                number: document.getElementById('cardNumber').value,
+                expiry: document.getElementById('cardExpiry').value,
+                cvv: document.getElementById('cardCvv').value
+            };
+            
+            if (!validateCard(card)) {
+                return;
+            }
+            
+            cards.push(card);
+            localStorage.setItem('cards', JSON.stringify(cards));
+            cardModal.classList.add('hidden');
+            alert('Cartão cadastrado com sucesso!');
+        }
+
+        function validateCard(card) {
+            // Basic validation - implement more robust validation as needed
+            if (!card.name || card.name.length < 3) {
+                alert('Por favor insira um nome válido');
+                return false;
+            }
+            
+            if (!card.number || card.number.replace(/\s/g, '').length !== 16) {
+                alert('Por favor insira um número de cartão válido (16 dígitos)');
+                return false;
+            }
+            
+            if (!card.expiry || !card.expiry.match(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/)) {
+                alert('Por favor insira uma data de validade válida (MM/AA)');
+                return false;
+            }
+            
+            if (!card.cvv || card.cvv.length < 3) {
+                alert('Por favor insira um CVV válido');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Event Listeners - Card
+        addCardBtn.addEventListener('click', () => {
+            cardModal.classList.remove('hidden');
+        });
+
+        closeCardModal.addEventListener('click', () => {
+            cardModal.classList.add('hidden');
+        });
+
+        saveCardBtn.addEventListener('click', saveCard);
+
+        // Initialize from localStorage
+        function initFromLocalStorage() {
+            const savedCards = localStorage.getItem('cards');
+            if (savedCards) {
+                cards = JSON.parse(savedCards);
+            }
+            const savedCart = localStorage.getItem('cart');
+            const savedUser = localStorage.getItem('user');
+            
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+            
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                isLoggedIn = true;
+                updateAuthUI();
+            }
+        }
+
+        // Helper to update cart total
+        function updateCartTotal() {
+            const subtotal = parseFloat(document.getElementById('cartSubtotal').textContent.replace('R$ ', '').replace(',', '.'));
+            const shipping = parseFloat(document.getElementById('cartShipping').textContent.replace('R$ ', '').replace(',', '.'));
+            document.getElementById('cartTotal').textContent = `R$ ${(subtotal + shipping).toFixed(2).replace('.', ',')}`;
+        }
+
+        // Update cart UI
+        function updateCartUI() {
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartSummary.classList.add('hidden');
+                cartCount.classList.add('hidden');
+                return;
+            }
+            
+            emptyCartMessage.classList.add('hidden');
+            cartSummary.classList.remove('hidden');
+            
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex justify-between items-center py-4 border-b';
+                itemElement.innerHTML = `
+                    <div class="flex items-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f01a8e0d-52ee-4fd1-b085-848d9345f098.png" alt="Miniatura de capa de livro" class="w-12 h-16 object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold">${item.title}</h4>
+                            <p class="text-sm text-gray-600">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="decrease-quantity px-2 py-1 border rounded-l" data-id="${item.id}">-</button>
+                        <span class="quantity px-3 py-1 border-t border-b">${item.quantity}</span>
+                        <button class="increase-quantity px-2 py-1 border rounded-r" data-id="${item.id}">+</button>
+                        <button class="remove-item ml-4 text-red-500" data-id="${item.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                cartItems.appendChild(itemElement);
+                
+                subtotal += item.price * item.quantity;
+            });
+            
+            // Update cart summary
+            document.getElementById('cartSubtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            
+            // Reset shipping when cart changes
+            document.getElementById('shippingOptions').classList.add('hidden');
+            document.getElementById('cepInput').value = '';
+            document.getElementById('cartShipping').textContent = 'R$ 0,00';
+            updateCartTotal();
+            
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartCount.classList.remove('hidden');
+            
+            // Add event listeners to new buttons
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.target.dataset.id;
+                    decreaseQuantity(id);
+                });
+            });
+            
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.target.dataset.id;
+                    increaseQuantity(id);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.target.dataset.id;
+                    removeItem(id);
+                });
+            });
+        }
+
+        // Shipping calculation
+        function calculateShipping(cep) {
+            // Simulate API call to calculate shipping
+            // In a real app, this would call your backend which would query Correios API
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    // Mock shipping prices based on distance bands
+                    const cepFirstDigit = cep.charAt(0);
+                    let standardPrice = 15;
+                    let expressPrice = 30;
+                    
+                    // Adjust prices based on "distance" (simulated by CEP first digit)
+                    if (cepFirstDigit >= '5') {
+                        standardPrice = 25;
+                        expressPrice = 45;
+                    }
+                    if (cepFirstDigit >= '8') {
+                        standardPrice = 35;
+                        expressPrice = 60;
+                    }
+                    
+                    resolve({
+                        standard: standardPrice,
+                        express: expressPrice
+                    });
+                }, 500);
+            });
+        }
+
+        // Cart functions
+        function addToCart(id, title, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id,
+                    title,
+                    price,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function decreaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                item.quantity -= 1;
+                
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== id);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartUI();
+            }
+        }
+
+        function increaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                item.quantity += 1;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartUI();
+            }
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        // Auth UI
+        function updateAuthUI() {
+            if (isLoggedIn) {
+                authButtons.textContent = currentUser.name;
+                authButtons.title = `Logado como ${currentUser.email}`;
+            } else {
+                authButtons.textContent = 'Entrar';
+                authButtons.removeAttribute('title');
+            }
+        }
+
+        // Validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        function validateName(name) {
+            return name.trim().length > 0;
+        }
+
+        // Event Listeners
+        // Shipping calculation
+        document.getElementById('calculateShippingBtn').addEventListener('click', async () => {
+            const cep = document.getElementById('cepInput').value.replace(/\D/g, '');
+            if (cep.length !== 8) {
+                alert('Por favor insira um CEP válido com 8 dígitos');
+                return;
+            }
+
+            try {
+                const shippingPrices = await calculateShipping(cep);
+                document.getElementById('standardShippingPrice').textContent = `R$ ${shippingPrices.standard.toFixed(2).replace('.', ',')}`;
+                document.getElementById('expressShippingPrice').textContent = `R$ ${shippingPrices.express.toFixed(2).replace('.', ',')}`;
+                document.getElementById('shippingOptions').classList.remove('hidden');
+                
+                // Update cart with standard shipping by default
+                document.getElementById('cartShipping').textContent = `R$ ${shippingPrices.standard.toFixed(2).replace('.', ',')}`;
+                updateCartTotal();
+            } catch (error) {
+                alert('Erro ao calcular frete. Por favor tente novamente.');
+                console.error(error);
+            }
+        });
+
+        // Shipping option selection
+        document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const price = e.target.id === 'shippingStandard' 
+                    ? document.getElementById('standardShippingPrice').textContent
+                    : document.getElementById('expressShippingPrice').textContent;
+                document.getElementById('cartShipping').textContent = price;
+                updateCartTotal();
+            });
+        });
+
+        // Auth Modal
+        authButtons.addEventListener('click', () => {
+            if (isLoggedIn) {
+                // Future: Add logout functionality
+                alert(`Você está logado como ${currentUser.email}`);
+            } else {
+                authModal.classList.remove('hidden');
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+            }
+        });
+
+        closeModal.addEventListener('click', () => {
+            authModal.classList.add('hidden');
+        });
+
+        switchToRegister.addEventListener('click', () => {
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+        });
+
+        switchToLogin.addEventListener('click', () => {
+            registerForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        // Login
+        loginBtn.addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            let isValid = true;
+            
+            // Validate email
+            if (!validateEmail(email)) {
+                document.getElementById('loginEmailError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('loginEmailError').classList.add('hidden');
+            }
+            
+            // Validate password
+            if (!validatePassword(password)) {
+                document.getElementById('loginPasswordError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('loginPasswordError').classList.add('hidden');
+            }
+            
+            if (isValid) {
+                // In a real app, you would send this to a server
+                currentUser = {
+                    email,
+                    name: email.split('@')[0] // Just for demo
+                };
+                
+                isLoggedIn = true;
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                updateAuthUI();
+                authModal.classList.add('hidden');
+                
+                // Clear form
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+            }
+        });
+
+        // Register
+        registerBtn.addEventListener('click', () => {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            let isValid = true;
+            
+            // Validate name
+            if (!validateName(name)) {
+                document.getElementById('registerNameError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('registerNameError').classList.add('hidden');
+            }
+            
+            // Validate email
+            if (!validateEmail(email)) {
+                document.getElementById('registerEmailError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('registerEmailError').classList.add('hidden');
+            }
+            
+            // Validate password
+            if (!validatePassword(password)) {
+                document.getElementById('registerPasswordError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('registerPasswordError').classList.add('hidden');
+            }
+            
+            // Validate confirm password
+            if (password !== confirmPassword) {
+                document.getElementById('registerConfirmPasswordError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('registerConfirmPasswordError').classList.add('hidden');
+            }
+            
+            if (isValid) {
+                // In a real app, you would send this to a server
+                currentUser = {
+                    email,
+                    name
+                };
+                
+                isLoggedIn = true;
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                updateAuthUI();
+                
+                // Switch to login form and clear register form
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                
+                // Clear form
+                document.getElementById('registerName').value = '';
+                document.getElementById('registerEmail').value = '';
+                document.getElementById('registerPassword').value = '';
+                document.getElementById('registerConfirmPassword').value = '';
+                
+                authModal.classList.add('hidden');
+            }
+        });
+
+        // Cart Modal
+        cartButton.addEventListener('click', () => {
+            cartModal.classList.remove('hidden');
+        });
+
+        closeCartModal.addEventListener('click', () => {
+            cartModal.classList.add('hidden');
+        });
+
+        // Add to cart buttons
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const id = e.target.dataset.id;
+                const title = e.target.dataset.title;
+                const price = parseFloat(e.target.dataset.price);
+                
+                addToCart(id, title, price);
+                
+                // Show feedback
+                const originalText = button.textContent;
+                button.textContent = '✔ Adicionado';
+                button.style.backgroundColor = '#28a745';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '';
+                }, 2000);
+            });
+        });
+
+        // Checkout button
+        checkoutBtn.addEventListener('click', () => {
+            if (!isLoggedIn) {
+                alert('Por favor, faça login para finalizar sua compra.');
+                authModal.classList.remove('hidden');
+                cartModal.classList.add('hidden');
+            } else {
+                alert(`Compra realizada com sucesso por ${currentUser.name}! Total: ${document.getElementById('cartTotal').textContent}`);
+                cart = [];
+                localStorage.removeItem('cart');
+                updateCartUI();
+                cartModal.classList.add('hidden');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initFromLocalStorage();
+            
+            // Click outside modals to close
+            [authModal, cartModal].forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
